@@ -3,11 +3,10 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = "your-secret-key"
+SECRET_KEY = os.environ.get('SECRET_KEY', 'ov5@$&h_vif2z)o@re45u@ibmt2!gqhq%wzcpm)65p@z_f^6h&')
+DEBUG = os.environ.get('DEBUG', 'False') == 'True'
 
-DEBUG = True
-
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.onrender.com').split(',')
 
 INSTALLED_APPS = [
     "django.contrib.admin",
