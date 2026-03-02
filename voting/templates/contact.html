@@ -1,0 +1,67 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact Admin</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'bg.jpg' %}") no-repeat center center/cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .contact-container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0px 4px 20px rgba(0,0,0,0.2);
+            width: 400px;
+            text-align: center;
+        }
+        h2 { color: #333; margin-bottom: 20px; }
+        .info-item {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin: 15px 0;
+            font-size: 16px;
+            color: #555;
+        }
+        .info-item span { font-size: 22px; }
+        a.back-btn {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        a.back-btn:hover { background: #0056b3; }
+    </style>
+</head>
+<body>
+    <div class="contact-container">
+        <h2>📞 Contact Admin</h2>
+        <div class="info-item">
+            <span>👤</span> <strong>Admin Name:</strong> SaiRam
+        </div>
+        <div class="info-item">
+            <span>📧</span> <strong>Email:</strong> sairam@example.com
+        </div>
+        <div class="info-item">
+            <span>📱</span> <strong>Phone:</strong> +91 9999999999
+        </div>
+        <div class="info-item">
+            <span>🌐</span> <strong>Website:</strong> votingsystem.com
+        </div>
+        <a class="back-btn" href="{% url 'home' %}">⬅ Back to Home</a>
+    </div>
+</body>
+</html>

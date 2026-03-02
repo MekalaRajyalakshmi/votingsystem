@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Results - {{ category.name }}</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: url("{% static 'images/bg.jpg' %}") no-repeat center center/cover;
+            padding: 30px;
+        }
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            margin-bottom: 15px;
+        }
+        .bar {
+            height: 20px;
+            border-radius: 8px;
+            background: green;
+        }
+        .label {
+            font-weight: bold;
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+    <h2>Results for {{ category.name }}</h2>
+    <p>Total Votes: {{ total_votes }}</p>
+
+    {% for r in results %}
+        <div class="result-box">
+            <div class="label">{{ r.nominee.name }} - {{ r.votes }} votes ({{ r.percentage }}%)</div>
+            <div style="background:#eee; border-radius:8px;">
+                <div class="bar" style="width: {{ r.percentage }}%;"></div>
+            </div>
+        </div>
+    {% endfor %}
+</body>
+</html>

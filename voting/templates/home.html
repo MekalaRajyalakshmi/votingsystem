@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Voting System</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: url("{% static 'bg.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+        }
+
+        h1 {
+            text-align: center;
+            color: #222;
+            margin-bottom: 10px;
+        }
+
+        p {
+            text-align: center;
+            font-size: 16px;
+            color: #555;
+        }
+
+        .categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .category-card {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 220px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .category-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+        }
+
+        .category-card h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+        }
+
+        .view-btn {
+            display: inline-block;
+            padding: 8px 14px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .view-btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🗳 Welcome to the Voting System</h1>
+        <p>Select a category to view nominees and cast your vote.</p>
+
+        <div style="text-align:right; margin-bottom: 10px;">
+            <a href="{% url 'logout' %}" style="padding:8px 16px; background:#dc3545; color:white; border-radius:6px; text-decoration:none; font-weight:bold; margin-left:10px;">🚪 Logout</a>
+            <a href="{% url 'contact' %}" style="padding:8px 16px; background:#28a745; color:white; border-radius:6px; text-decoration:none; font-weight:bold; margin-left:10px;">📞 Contact</a>
+        </div>
+        <div class="categories">
+            {% for category in categories %}
+                <div class="category-card">
+                    <h2>{{ category.name }}</h2>
+                    <a class="view-btn" href="{% url 'category_detail' category.id %}">View Nominees</a>
+                </div>
+            {% empty %}
+                <p>No categories available yet.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

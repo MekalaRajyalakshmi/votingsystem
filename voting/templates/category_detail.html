@@ -1,0 +1,120 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ category.name }} — Nominees</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: url("{% static 'bg.jpg' %}") no-repeat center center fixed;
+            background-size: cover;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: auto;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .nominees {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .nominee-card {
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            width: 200px;
+            padding: 15px;
+            text-align: center;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nominee-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(0,0,0,0.15);
+        }
+
+        .nominee-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 10px;
+        }
+
+        .vote-btn {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .vote-btn:hover {
+            background-color: #1e7e34;
+        }
+
+        .has-voted {
+            color: #28a745;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>{{ category.name }} — Nominees</h1>
+
+        {% if has_voted %}
+            <p class="has-voted">✅ You have already voted in this category.</p>
+        {% endif %}
+
+        <div class="nominees">
+            {% for nominee in nominees %}
+                <div class="nominee-card">
+                    {% if nominee.image %}
+                        <img src="{{ nominee.image.url }}" alt="{{ nominee.name }}">
+                    {% else %}
+                        <img src="{% static 'default.jpg' %}" alt="No Image">
+                    {% endif %}
+                    <h3>{{ nominee.name }}</h3>
+
+                    {% if not has_voted %}
+                        <form method="post" action="{% url 'vote' nominee.id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="vote-btn">Vote</button>
+                        </form>
+                    {% else %}
+                        <button class="vote-btn" disabled>Vote</button>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No nominees in this category yet.</p>
+            {% endfor %}
+        </div>
+
+        <p style="text-align:center; margin-top:20px;">
+            <a href="{% url 'home' %}" style="color:#007bff; text-decoration:none;">⬅ Back to Categories</a>
+        </p>
+    </div>
+</body>
+</html>
